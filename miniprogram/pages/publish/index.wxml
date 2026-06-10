@@ -1,0 +1,90 @@
+<view class="container">
+  <view class="form-card">
+    <view class="form-item">
+      <view class="form-label">物品标题 <text class="required">*</text></view>
+      <input
+        class="form-input"
+        placeholder="请输入物品标题（50字以内）"
+        maxlength="50"
+        data-field="title"
+        value="{{form.title}}"
+        bindinput="onInputChange"
+      />
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">分类 <text class="required">*</text></view>
+      <picker mode="selector" range="{{categories}}" range-key="label" bindchange="onCategoryChange">
+        <view class="picker-value {{form.category ? '' : 'placeholder'}}">
+          {{categoryLabel || '请选择分类'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">成色 <text class="required">*</text></view>
+      <picker mode="selector" range="{{conditions}}" range-key="label" bindchange="onConditionChange">
+        <view class="picker-value {{form.condition ? '' : 'placeholder'}}">
+          {{conditionLabel || '请选择成色'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">物品描述</view>
+      <textarea
+        class="form-textarea"
+        placeholder="描述一下物品的情况..."
+        data-field="description"
+        value="{{form.description}}"
+        bindinput="onInputChange"
+      />
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">图片上传</view>
+      <view class="image-grid">
+        <block wx:for="{{form.images}}" wx:key="index">
+          <view class="image-item">
+            <image class="image-preview" src="{{item}}" mode="aspectFill" />
+            <view class="delete-btn" catchtap="deleteImage" data-index="{{index}}">
+              <text class="delete-icon">×</text>
+            </view>
+          </view>
+        </block>
+        <view class="add-image-btn" wx:if="{{form.images.length < 6}}" bindtap="chooseImage">
+          <text class="add-icon">+</text>
+          <text class="add-text">添加图片</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">交易地点</view>
+      <input
+        class="form-input"
+        placeholder="请输入交易地点"
+        data-field="location"
+        value="{{form.location}}"
+        bindinput="onInputChange"
+      />
+    </view>
+
+    <view class="form-item">
+      <view class="form-label">期望交换</view>
+      <input
+        class="form-input"
+        placeholder="你想换什么？（可选）"
+        data-field="wantExchangeFor"
+        value="{{form.wantExchangeFor}}"
+        bindinput="onInputChange"
+      />
+    </view>
+  </view>
+
+  <view class="submit-bar">
+    <button class="submit-btn" bindtap="submitForm">
+      {{mode === 'edit' ? '保存修改' : '发布物品'}}
+    </button>
+  </view>
+</view>

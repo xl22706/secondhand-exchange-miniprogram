@@ -1,0 +1,76 @@
+<view class="container">
+  <block wx:if="{{goodsDetail}}">
+    <!-- 图片轮播 -->
+    <swiper class="goods-swiper" indicator-dots autoplay circular>
+      <swiper-item wx:for="{{goodsDetail.images}}" wx:key="*this">
+        <image class="swiper-image" src="{{item}}" mode="aspectFill" />
+      </swiper-item>
+      <swiper-item wx:if="{{!goodsDetail.images || goodsDetail.images.length === 0}}">
+        <image class="swiper-image" src="/images/default-goods-image.png" mode="aspectFill" />
+      </swiper-item>
+    </swiper>
+
+    <!-- 物品信息区域 -->
+    <view class="info-card">
+      <view class="goods-title">{{goodsDetail.title}}</view>
+      <view class="goods-tags">
+        <view class="tag condition-tag">{{goodsDetail.condition}}</view>
+        <view class="tag category-tag" wx:if="{{goodsDetail.category}}">
+          {{goodsDetail.category}}
+        </view>
+      </view>
+      <view class="goods-desc">{{goodsDetail.description || '暂无描述'}}</view>
+      <view class="goods-location" wx:if="{{goodsDetail.location}}">
+        <text class="location-icon">📍</text>
+        <text class="location-text">{{goodsDetail.location}}</text>
+      </view>
+      <view class="goods-expect" wx:if="{{goodsDetail.expectExchange}}">
+        <text class="expect-label">期望交换：</text>
+        <text class="expect-text">{{goodsDetail.expectExchange}}</text>
+      </view>
+    </view>
+
+    <!-- 发布者信息 -->
+    <view class="publisher-card">
+      <image
+        class="publisher-avatar"
+        src="{{goodsDetail.publisherAvatar || '/images/avatar.png'}}"
+      />
+      <view class="publisher-info">
+        <text class="publisher-name">{{goodsDetail.publisherNickname || '未知用户'}}</text>
+        <text class="publish-time">{{goodsDetail.formattedCreateTime}}</text>
+      </view>
+    </view>
+
+    <view class="footer-placeholder"></view>
+  </block>
+</view>
+
+<!-- 底部固定按钮栏 -->
+<view class="bottom-bar" wx:if="{{goodsDetail}}">
+  <block wx:if="{{isOwner}}">
+    <view class="btn btn-edit" bindtap="onEdit">编辑</view>
+    <view class="btn btn-delete" bindtap="onDelete">删除</view>
+  </block>
+  <block wx:else>
+    <view class="btn btn-exchange" bindtap="onExchange">申请交换</view>
+  </block>
+</view>
+
+<!-- 申请交换弹窗 -->
+<view class="modal-mask" wx:if="{{showExchangeModal}}" catchtap="onExchangeCancel">
+  <view class="modal-content" catchtap="preventBubble">
+    <view class="modal-title">申请交换</view>
+    <textarea
+      class="modal-textarea"
+      placeholder="请输入留言，说明你想用什么物品交换..."
+      value="{{exchangeMessage}}"
+      bindinput="onExchangeMessageInput"
+      maxlength="200"
+    />
+    <view class="modal-actions">
+      <view class="modal-btn modal-cancel" bindtap="onExchangeCancel">取消</view>
+      <view class="modal-btn modal-confirm" bindtap="onExchangeConfirm">确认</view>
+    </view>
+  </view>
+</view>

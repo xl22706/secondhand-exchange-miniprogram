@@ -1,0 +1,64 @@
+<view class="container">
+  <view class="tab-bar">
+    <view class="tab-item {{currentTab === 'sent' ? 'active' : ''}}" data-tab="sent" bindtap="onSwitchTab">
+      <text>我发出的</text>
+    </view>
+    <view class="tab-item {{currentTab === 'received' ? 'active' : ''}}" data-tab="received" bindtap="onSwitchTab">
+      <text>我收到的</text>
+    </view>
+  </view>
+
+  <view class="exchange-list">
+    <block wx:if="{{currentTab === 'sent'}}">
+      <block wx:if="{{sentList.length > 0}}">
+        <view class="exchange-card" wx:for="{{sentList}}" wx:key="_id">
+          <view class="card-header" data-goods-id="{{item.goodsId}}" bindtap="onGoToGoods">
+            <view class="goods-title">{{item.goodsTitle}}</view>
+            <view class="status-tag pending" wx:if="{{item.status === 'pending'}}">待处理</view>
+            <view class="status-tag accepted" wx:if="{{item.status === 'accepted'}}">已同意</view>
+            <view class="status-tag rejected" wx:if="{{item.status === 'rejected'}}">已拒绝</view>
+          </view>
+          <view class="user-info">
+            <image class="user-avatar" src="{{item.ownerAvatar || '/assets/images/default-avatar.png'}}" mode="aspectFill" />
+            <text class="user-nickname">{{item.ownerNickName || '未知用户'}}</text>
+          </view>
+          <view class="message" wx:if="{{item.message}}">{{item.message}}</view>
+          <view class="card-footer">{{item.createTime}}</view>
+        </view>
+        <view class="load-more" wx:if="{{loading}}">加载中...</view>
+        <view class="no-more" wx:if="{{!hasMore && sentList.length > 0}}">没有更多了</view>
+      </block>
+      <view class="empty-state" wx:if="{{sentList.length === 0 && !loading}}">
+        <text>暂无交换请求</text>
+      </view>
+    </block>
+
+    <block wx:if="{{currentTab === 'received'}}">
+      <block wx:if="{{receivedList.length > 0}}">
+        <view class="exchange-card" wx:for="{{receivedList}}" wx:key="_id">
+          <view class="card-header" data-goods-id="{{item.goodsId}}" bindtap="onGoToGoods">
+            <view class="goods-title">{{item.goodsTitle}}</view>
+            <view class="status-tag pending" wx:if="{{item.status === 'pending'}}">待处理</view>
+            <view class="status-tag accepted" wx:if="{{item.status === 'accepted'}}">已同意</view>
+            <view class="status-tag rejected" wx:if="{{item.status === 'rejected'}}">已拒绝</view>
+          </view>
+          <view class="user-info">
+            <image class="user-avatar" src="{{item.requesterAvatar || '/assets/images/default-avatar.png'}}" mode="aspectFill" />
+            <text class="user-nickname">{{item.requesterNickName || '未知用户'}}</text>
+          </view>
+          <view class="message" wx:if="{{item.message}}">{{item.message}}</view>
+          <view class="action-bar" wx:if="{{item.status === 'pending'}}">
+            <view class="action-btn btn-accept" data-exchange-id="{{item._id}}" bindtap="onAccept">同意</view>
+            <view class="action-btn btn-reject" data-exchange-id="{{item._id}}" bindtap="onReject">拒绝</view>
+          </view>
+          <view class="card-footer">{{item.createTime}}</view>
+        </view>
+        <view class="load-more" wx:if="{{loading}}">加载中...</view>
+        <view class="no-more" wx:if="{{!hasMore && receivedList.length > 0}}">没有更多了</view>
+      </block>
+      <view class="empty-state" wx:if="{{receivedList.length === 0 && !loading}}">
+        <text>暂无交换请求</text>
+      </view>
+    </block>
+  </view>
+</view>

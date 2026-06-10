@@ -1,0 +1,166 @@
+.container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.tab-bar {
+  display: flex;
+  background-color: #ffffff;
+  border-bottom: 1rpx solid #eee;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 30rpx;
+  color: #666;
+  position: relative;
+}
+
+.tab-item.active {
+  color: #333;
+  font-weight: bold;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 4rpx;
+  background-color: #07c160;
+  border-radius: 2rpx;
+}
+
+.exchange-list {
+  padding: 20rpx;
+}
+
+.exchange-card {
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.goods-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: 16rpx;
+}
+
+.status-tag {
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  flex-shrink: 0;
+}
+
+.status-tag.pending {
+  color: #ff9900;
+  background-color: #fff5e6;
+}
+
+.status-tag.accepted {
+  color: #07c160;
+  background-color: #e6f7ef;
+}
+
+.status-tag.rejected {
+  color: #e64340;
+  background-color: #ffe6e6;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.user-avatar {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+
+.user-nickname {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.message {
+  font-size: 26rpx;
+  color: #666;
+  background-color: #f9f9f9;
+  padding: 16rpx;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+  word-break: break-all;
+}
+
+.action-bar {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 16rpx;
+}
+
+.action-btn {
+  flex: 1;
+  text-align: center;
+  padding: 14rpx 0;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+.btn-accept {
+  color: #ffffff;
+  background-color: #07c160;
+}
+
+.btn-reject {
+  color: #ffffff;
+  background-color: #999999;
+}
+
+.card-footer {
+  font-size: 22rpx;
+  color: #bbb;
+  text-align: right;
+}
+
+.load-more,
+.no-more {
+  text-align: center;
+  font-size: 24rpx;
+  color: #999;
+  padding: 20rpx 0;
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  font-size: 28rpx;
+  color: #999;
+}
