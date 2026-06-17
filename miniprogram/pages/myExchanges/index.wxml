@@ -19,8 +19,8 @@
             <view class="status-tag rejected" wx:if="{{item.status === 'rejected'}}">已拒绝</view>
           </view>
           <view class="user-info">
-            <image class="user-avatar" src="{{item.ownerAvatar || '/assets/images/default-avatar.png'}}" mode="aspectFill" />
-            <text class="user-nickname">{{item.ownerNickName || '未知用户'}}</text>
+            <image class="user-avatar" src="{{item.toUserAvatar || '/assets/images/default-avatar.png'}}" mode="aspectFill" />
+            <text class="user-nickname">{{item.toUserNickName || '未知用户'}}</text>
           </view>
           <view class="message" wx:if="{{item.message}}">{{item.message}}</view>
           <view class="card-footer">{{item.createTime}}</view>
@@ -43,8 +43,8 @@
             <view class="status-tag rejected" wx:if="{{item.status === 'rejected'}}">已拒绝</view>
           </view>
           <view class="user-info">
-            <image class="user-avatar" src="{{item.requesterAvatar || '/assets/images/default-avatar.png'}}" mode="aspectFill" />
-            <text class="user-nickname">{{item.requesterNickName || '未知用户'}}</text>
+            <image class="user-avatar" src="{{item.fromUserAvatar || '/assets/images/default-avatar.png'}}" mode="aspectFill" />
+            <text class="user-nickname">{{item.fromUserNickName || '未知用户'}}</text>
           </view>
           <view class="message" wx:if="{{item.message}}">{{item.message}}</view>
           <view class="action-bar" wx:if="{{item.status === 'pending'}}">

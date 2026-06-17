@@ -14,9 +14,9 @@
     <view class="info-card">
       <view class="goods-title">{{goodsDetail.title}}</view>
       <view class="goods-tags">
-        <view class="tag condition-tag">{{goodsDetail.condition}}</view>
-        <view class="tag category-tag" wx:if="{{goodsDetail.category}}">
-          {{goodsDetail.category}}
+        <view class="tag condition-tag">{{goodsDetail.conditionLabel}}</view>
+        <view class="tag category-tag" wx:if="{{goodsDetail.categoryLabel}}">
+          {{goodsDetail.categoryLabel}}
         </view>
       </view>
       <view class="goods-desc">{{goodsDetail.description || '暂无描述'}}</view>
@@ -24,9 +24,9 @@
         <text class="location-icon">📍</text>
         <text class="location-text">{{goodsDetail.location}}</text>
       </view>
-      <view class="goods-expect" wx:if="{{goodsDetail.expectExchange}}">
+      <view class="goods-expect" wx:if="{{goodsDetail.wantExchangeFor}}">
         <text class="expect-label">期望交换：</text>
-        <text class="expect-text">{{goodsDetail.expectExchange}}</text>
+        <text class="expect-text">{{goodsDetail.wantExchangeFor}}</text>
       </view>
     </view>
 
@@ -34,10 +34,10 @@
     <view class="publisher-card">
       <image
         class="publisher-avatar"
-        src="{{goodsDetail.publisherAvatar || '/images/avatar.png'}}"
+        src="{{goodsDetail.ownerAvatar || '/images/avatar.png'}}"
       />
       <view class="publisher-info">
-        <text class="publisher-name">{{goodsDetail.publisherNickname || '未知用户'}}</text>
+        <text class="publisher-name">{{goodsDetail.ownerNickName || '未知用户'}}</text>
         <text class="publish-time">{{goodsDetail.formattedCreateTime}}</text>
       </view>
     </view>

@@ -48,9 +48,9 @@
         <view class="goods-user">
           <image
             class="user-avatar"
-            src="{{item.publisherAvatar || '/images/avatar.png'}}"
+            src="{{item.ownerAvatar || '/images/avatar.png'}}"
           />
-          <text class="user-nickname">{{item.publisherNickname || '未知用户'}}</text>
+          <text class="user-nickname">{{item.ownerNickName || '未知用户'}}</text>
         </view>
       </view>
     </view>

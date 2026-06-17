@@ -55,15 +55,16 @@ Page({
     wx.cloud.callFunction({
       name: 'exchangeFunctions',
       data: {
-        action: 'getExchangeList',
-        type: currentTab,
+        type: 'getExchangeList',
+        tab: currentTab,
         page,
         pageSize,
       },
     }).then((res) => {
       const result = res.result || {};
-      const list = result.list || [];
-      const total = result.total || 0;
+      const data = result.data || {};
+      const list = data.list || [];
+      const total = data.total || 0;
 
       if (currentTab === 'sent') {
         const newList = page === 1 ? list : sentList.concat(list);
@@ -99,7 +100,7 @@ Page({
           wx.cloud.callFunction({
             name: 'exchangeFunctions',
             data: {
-              action: 'updateExchangeStatus',
+              type: 'updateExchangeStatus',
               exchangeId,
               status: 'accepted',
             },
@@ -127,7 +128,7 @@ Page({
           wx.cloud.callFunction({
             name: 'exchangeFunctions',
             data: {
-              action: 'updateExchangeStatus',
+              type: 'updateExchangeStatus',
               exchangeId,
               status: 'rejected',
             },

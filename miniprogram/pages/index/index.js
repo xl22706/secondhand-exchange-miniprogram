@@ -15,6 +15,13 @@ Page({
       { label: '服饰', value: 'clothing' },
       { label: '其他', value: 'others' },
     ],
+    conditionLabels: {
+      brandNew: '全新',
+      likeNew: '九成新',
+      good: '八成新',
+      fair: '七成新',
+      poor: '其他',
+    },
   },
 
   onLoad() {
@@ -63,8 +70,14 @@ Page({
       })
       .then((res) => {
         if (res.result && res.result.success) {
-          const list = res.result.data || [];
-          const goodsList = this.data.goodsList.concat(list);
+          const data = res.result.data || {};
+          const list = data.list || [];
+          const { conditionLabels } = this.data;
+          const mappedList = list.map((item) => ({
+            ...item,
+            condition: conditionLabels[item.condition] || item.condition,
+          }));
+          const goodsList = this.data.goodsList.concat(mappedList);
           const hasMore = list.length === pageSize;
           this.setData({ goodsList, hasMore });
         } else {
@@ -113,7 +126,7 @@ Page({
       .then((res) => {
         if (res.result && res.result.success) {
           this.setData({
-            goodsList: res.result.data || [],
+            goodsList: (res.result.data || {}).list || [],
             hasMore: false,
           });
         } else {

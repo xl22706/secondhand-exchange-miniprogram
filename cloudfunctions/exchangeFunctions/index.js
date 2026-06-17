@@ -62,6 +62,7 @@ async function createExchange(openid, event) {
     fromUserAvatar: user.avatarUrl || '',
     toUserOpenId: goods.ownerOpenId,
     toUserNickName: goods.ownerNickName || '',
+    toUserAvatar: goods.ownerAvatar || '',
     message: message || '',
     status: 'pending',
     createTime: db.serverDate(),
@@ -74,9 +75,9 @@ async function createExchange(openid, event) {
 }
 
 async function getExchangeList(openid, event) {
-  const { type, page = 1, pageSize = 10 } = event;
+  const { tab, page = 1, pageSize = 10 } = event;
 
-  const whereCondition = type === 'sent'
+  const whereCondition = tab === 'sent'
     ? { fromUserOpenId: openid }
     : { toUserOpenId: openid };
 

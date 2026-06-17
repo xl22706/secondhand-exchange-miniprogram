@@ -23,6 +23,20 @@ Page({
     isOwner: false,
     showExchangeModal: false,
     exchangeMessage: '',
+    conditionMap: {
+      brandNew: '全新',
+      likeNew: '九成新',
+      good: '八成新',
+      fair: '七成新',
+      poor: '其他',
+    },
+    categoryMap: {
+      electronics: '电子产品',
+      books: '书籍',
+      daily: '生活用品',
+      clothing: '服饰',
+      others: '其他',
+    },
   },
 
   onLoad(options) {
@@ -66,6 +80,8 @@ Page({
           const currentOpenId = getCurrentOpenId();
           const isOwner = detail.ownerOpenId === currentOpenId;
           detail.formattedCreateTime = this.formatDate(detail.createTime);
+          detail.conditionLabel = this.data.conditionMap[detail.condition] || detail.condition;
+          detail.categoryLabel = this.data.categoryMap[detail.category] || detail.category;
           this.setData({ goodsDetail: detail, isOwner });
         } else {
           wx.showToast({ title: '加载失败', icon: 'none' });

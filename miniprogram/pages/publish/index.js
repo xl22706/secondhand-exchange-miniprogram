@@ -54,11 +54,11 @@ Page({
     wx.cloud.callFunction({
       name: 'goodsFunctions',
       data: {
-        action: 'getGoodsDetail',
+        type: 'getGoodsDetail',
         goodsId
       }
     }).then(res => {
-      if (res.result && res.result.code === 0) {
+      if (res.result && res.result.success === true) {
         const detail = res.result.data || {};
         this.setData({
           form: {
@@ -179,12 +179,12 @@ Page({
     wx.cloud.callFunction({
       name: 'goodsFunctions',
       data: {
-        action,
+        type: action,
         ...params
       }
     }).then(res => {
       wx.hideLoading();
-      if (res.result && res.result.code === 0) {
+      if (res.result && res.result.success === true) {
         wx.showToast({
           title: mode === 'edit' ? '保存成功' : '发布成功',
           icon: 'success'

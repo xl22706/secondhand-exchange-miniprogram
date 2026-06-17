@@ -16,11 +16,11 @@ Page({
         userInfo: globalUserInfo
       });
     } else if (typeof app.initUserInfo === 'function') {
-      app.initUserInfo().then(userInfo => {
-        this.setData({ userInfo });
-      }).catch(err => {
-        console.error('初始化用户信息失败', err);
-      });
+      app.initUserInfo();
+      const retryUserInfo = app.globalData.userInfo;
+      if (retryUserInfo) {
+        this.setData({ userInfo: retryUserInfo });
+      }
     }
   },
 
@@ -44,11 +44,12 @@ Page({
     wx.cloud.callFunction({
       name: 'userFunctions',
       data: {
-        action: 'updateUserInfo',
-        userInfo
+        type: 'updateUserInfo',
+        nickName: userInfo.nickName,
+        avatarUrl: userInfo.avatarUrl
       }
     }).then(res => {
-      if (res.result && res.result.code === 0) {
+      if (res.result && res.result.success === true) {
         console.log('用户信息更新成功');
       }
     }).catch(err => {

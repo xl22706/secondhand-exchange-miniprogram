@@ -37,14 +37,15 @@ Page({
     wx.cloud.callFunction({
       name: 'goodsFunctions',
       data: {
-        action: 'getMyGoods',
+        type: 'getMyGoods',
         page,
         pageSize,
       },
     }).then((res) => {
       const result = res.result || {};
-      const list = result.list || [];
-      const total = result.total || 0;
+      const data = result.data || {};
+      const list = data.list || [];
+      const total = data.total || 0;
 
       this.setData({
         goodsList: page === 1 ? list : goodsList.concat(list),
@@ -78,7 +79,7 @@ Page({
           wx.cloud.callFunction({
             name: 'goodsFunctions',
             data: {
-              action: 'deleteGoods',
+              type: 'deleteGoods',
               goodsId,
             },
           }).then(() => {
@@ -100,7 +101,7 @@ Page({
     wx.cloud.callFunction({
       name: 'goodsFunctions',
       data: {
-        action: 'updateGoods',
+        type: 'updateGoods',
         goodsId,
         status: 'offline',
       },
